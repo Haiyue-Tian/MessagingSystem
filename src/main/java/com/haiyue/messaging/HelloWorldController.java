@@ -11,7 +11,6 @@ public class HelloWorldController {
 
     @GetMapping("/hello") // http://domain/hello
     public String helloWorld(@RequestParam String name) {
-        return 
         return this.helloService.hello(name);
     }
 
