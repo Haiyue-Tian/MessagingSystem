@@ -57,10 +57,18 @@ public class UserService {
 
         var userValidationCode = new UserValidationCode();
         userValidationCode.setValidationCode(RandomStringUtils.randomNumeric(6));
-        userValidationCode.setUserId(user.getId());
+        userValidationCode.setUsername(user.getUsername());
         this.userValidationCodeDAO.insert(userValidationCode);
 
         // send email to "email"
         javaMailEmailService.sendValidationEmail(user.getEmail(), userValidationCode.getValidationCode());
+    }
+
+    public void activate(String username, String validationCode) throws MessageServiceException {
+        if (!validationCode.equals(this.userValidationCodeDAO.selectByUsername(username))){
+            throw new MessageServiceException(Status.VALIDATION_CODE_NOT_MATCHED);
+        }
+        this.userDAO.updateIsValid(username);
+        this.userValidationCodeDAO.updateByUsername(username);
     }
 }
