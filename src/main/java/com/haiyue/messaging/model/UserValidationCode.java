@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class UserValidationCode {
     private int id;
-    private String username;
+    private int userId;
     private String validationCode;
 }

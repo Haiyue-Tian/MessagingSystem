@@ -14,5 +14,4 @@ public class RegisterUserRequest {
     private String address;
     private Gender gender;
     private String email;
-    private String validationCode;
 }

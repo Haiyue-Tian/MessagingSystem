@@ -57,7 +57,7 @@ public class UserService {
 
         var userValidationCode = new UserValidationCode();
         userValidationCode.setValidationCode(RandomStringUtils.randomNumeric(6));
-        userValidationCode.setUsername(user.getUsername());
+        userValidationCode.setUserId(user.getId());
         this.userValidationCodeDAO.insert(userValidationCode);
 
         // send email to "email"
@@ -65,10 +65,11 @@ public class UserService {
     }
 
     public void activate(String username, String validationCode) throws MessageServiceException {
-        if (!validationCode.equals(this.userValidationCodeDAO.selectByUsername(username))){
+        int id = this.userDAO.selectByUsername(username).get(0).getId();
+        if (!validationCode.equals(this.userValidationCodeDAO.selectById(id))){
             throw new MessageServiceException(Status.VALIDATION_CODE_NOT_MATCHED);
         }
-        this.userDAO.updateIsValid(username);
-        this.userValidationCodeDAO.updateByUsername(username);
+        this.userDAO.updateIsValid(id);
+        this.userValidationCodeDAO.updateById(id);
     }
 }

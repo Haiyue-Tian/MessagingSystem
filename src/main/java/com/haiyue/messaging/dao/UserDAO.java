@@ -24,7 +24,7 @@ public interface UserDAO {
     @Select("SELECT * FROM user WHERE username = #{username}")
     List<User> selectByUsername(String username);
 
-    @Update("UPDATE user SET is_valid = 1 WHERE username = #{username}")
-    void updateIsValid(String username);
+    @Update("UPDATE user SET is_valid = 1 WHERE id = #{id}")
+    void updateIsValid(int id);
 }
 

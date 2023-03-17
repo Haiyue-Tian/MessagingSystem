@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserValidationCodeDAO {
 
-    @Insert("INSERT INTO user_validation_code (username, validation_code) VALUES (#{username}, #{validationCode})")
+    @Insert("INSERT INTO user_validation_code (user_id, validation_code) VALUES (#{userId}, #{validationCode})")
     void insert(UserValidationCode userValidationCode);
 
-    @Select("SELECT validation_code FROM user_validation_code WHERE username = #{username}")
-    String selectByUsername(String username);
+    @Select("SELECT validation_code FROM user_validation_code WHERE user_id = #{id}")
+    String selectById(int id);
 
-    @Update("UPDATE user_validation_code SET validation_code = null WHERE username = #{username}")
-    void updateByUsername(String username);
+    @Update("UPDATE user_validation_code SET validation_code = null WHERE user_id = #{id}")
+    void updateById(int id);
 }

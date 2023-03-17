@@ -2,6 +2,7 @@ package com.haiyue.messaging.controller;
 
 import com.haiyue.messaging.enums.Status;
 import com.haiyue.messaging.exception.MessageServiceException;
+import com.haiyue.messaging.request.ActivateUserRequest;
 import com.haiyue.messaging.request.RegisterUserRequest;
 import com.haiyue.messaging.response.CommonResponse;
 import com.haiyue.messaging.service.UserService;
@@ -29,10 +30,10 @@ public class UserController {
     }
 
     @PostMapping("/activate")
-    public CommonResponse activate(@RequestBody RegisterUserRequest registerUserRequest) throws MessageServiceException{
+    public CommonResponse activate(@RequestBody ActivateUserRequest activateUserRequest) throws MessageServiceException{
         this.userService.activate(
-                registerUserRequest.getUsername(),
-                registerUserRequest.getValidationCode());
+                activateUserRequest.getUsername(),
+                activateUserRequest.getValidationCode());
         return new CommonResponse(Status.OK);
     }
 }
