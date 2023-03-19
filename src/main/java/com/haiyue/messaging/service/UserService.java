@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.haiyue.messaging.utils.Password.passwordEncoder;
 
@@ -65,11 +66,16 @@ public class UserService {
     }
 
     public void activate(String username, String validationCode) throws MessageServiceException {
-        int id = this.userDAO.selectByUsername(username).get(0).getId();
-        if (!validationCode.equals(this.userValidationCodeDAO.selectById(id))){
+
+        List<User> list = this.userDAO.selectByUsername(username);
+        if (list.isEmpty()){
+            throw new MessageServiceException(Status.USERNAME_NOT_FOUND);
+        }
+        int id = list.get(0).getId();
+        if (!validationCode.equals(this.userValidationCodeDAO.selectValidationCodeByUserId(id))){
             throw new MessageServiceException(Status.VALIDATION_CODE_NOT_MATCHED);
         }
         this.userDAO.updateIsValid(id);
-        this.userValidationCodeDAO.updateById(id);
+        this.userValidationCodeDAO.deleteByUserId(id);
     }
 }

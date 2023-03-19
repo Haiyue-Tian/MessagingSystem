@@ -1,10 +1,7 @@
 package com.haiyue.messaging.dao;
 
 import com.haiyue.messaging.model.UserValidationCode;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 @Mapper
@@ -14,9 +11,9 @@ public interface UserValidationCodeDAO {
     @Insert("INSERT INTO user_validation_code (user_id, validation_code) VALUES (#{userId}, #{validationCode})")
     void insert(UserValidationCode userValidationCode);
 
-    @Select("SELECT validation_code FROM user_validation_code WHERE user_id = #{id}")
-    String selectById(int id);
+    @Select("SELECT validation_code FROM user_validation_code WHERE user_id = #{userId}")
+    String selectValidationCodeByUserId(int userId);
 
-    @Update("UPDATE user_validation_code SET validation_code = null WHERE user_id = #{id}")
-    void updateById(int id);
+    @Delete("Delete FROM user_validation_code WHERE user_id = #{userId}")
+    void deleteByUserId(int userId);
 }

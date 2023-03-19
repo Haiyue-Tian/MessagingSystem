@@ -9,7 +9,8 @@ public enum Status {
     EMAIL_EXISTS(1003, "Email already exists", HttpStatus.BAD_REQUEST),
     PASSWORD_TOO_SHORT(1004, "Password is too short", HttpStatus.BAD_REQUEST),
     FAILED_TO_SEND_EMAIL(1005, "Failed to send email", HttpStatus.BAD_REQUEST),
-    VALIDATION_CODE_NOT_MATCHED(1006, "Validation code not mathced", HttpStatus.BAD_REQUEST);
+    VALIDATION_CODE_NOT_MATCHED(1006, "Validation code not mathced", HttpStatus.BAD_REQUEST),
+    USERNAME_NOT_FOUND(1007, "Username not found", HttpStatus.BAD_REQUEST);
 
     private int code;
     private String message;
