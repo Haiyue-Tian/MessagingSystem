@@ -1,6 +1,7 @@
 package com.haiyue.messaging.dao;
 
 import com.haiyue.messaging.model.UserValidationCode;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +20,6 @@ public interface UserValidationCodeDAO {
 
     @Update("UPDATE user_validation_code SET validation_code = null WHERE user_id = #{id}")
     void updateById(int id);
+
+
 }

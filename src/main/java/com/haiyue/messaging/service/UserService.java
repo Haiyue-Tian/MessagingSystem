@@ -29,7 +29,7 @@ public class UserService {
                              String repeatPassword,
                              String address,
                              Gender gender,
-                             String email) throws MessageServiceException{
+                             String email) throws MessageServiceException {
         // validations
         if (!password.equals(repeatPassword)) {
             throw new MessageServiceException(Status.PASSWORD_NOT_MATCHED);
