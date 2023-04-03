@@ -2,6 +2,7 @@ package com.haiyue.messaging.service;
 
 import com.haiyue.messaging.enums.Status;
 import com.haiyue.messaging.exception.MessageServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 public class JavaMailEmailService {
+    @Autowired
     private JavaMailSender javaMailSender;
 
     public JavaMailEmailService(JavaMailSender javaMailSender){

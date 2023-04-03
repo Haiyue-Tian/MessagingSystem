@@ -4,6 +4,7 @@ import com.haiyue.messaging.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 // data access object
@@ -23,6 +24,12 @@ public interface UserDAO {
 
     @Select("SELECT * FROM user WHERE username = #{username}")
     List<User> selectByUsername(String username);
+
+    @Select("SELECT * FROM user WHERE login_token = #{loginToken}")
+    User selectByLoginToken(String loginToken);
+
+    @Update("UPDATE user SET login_token = #{loginToken}, last_login_time = #{now} WHERE id = #{id}")
+    void login(String loginToken, Date now, int id);
 
     @Update("UPDATE user SET is_valid = 1 WHERE id = #{id}")
     void updateIsValid(int id);

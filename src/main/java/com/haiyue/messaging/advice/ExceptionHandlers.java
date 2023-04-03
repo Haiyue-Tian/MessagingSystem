@@ -1,5 +1,6 @@
 package com.haiyue.messaging.advice;
 
+import com.haiyue.messaging.enums.Status;
 import com.haiyue.messaging.exception.MessageServiceException;
 import com.haiyue.messaging.response.CommonResponse;
 import lombok.extern.log4j.Log4j2;
@@ -30,8 +31,10 @@ public class ExceptionHandlers {
      * @return response body
      */
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception exception){
-        System.out.println("Message: " + exception.getMessage());
-        return "exception";
+    public ResponseEntity<CommonResponse> handleException(Exception exception){
+        log.info("Encountered an exception: ", exception);
+        return new ResponseEntity<>(
+                new CommonResponse(Status.UNKNOWN_ERROR),
+                Status.UNKNOWN_ERROR.getHttpStatus());
     }
 }
