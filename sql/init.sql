@@ -27,4 +27,4 @@ CREATE TABLE user_validation_code (
     user_id int DEFAULT NULL,
     validation_code varchar(6) DEFAULT NULL,
     PRIMARY KEY(id)
-) ENGINE=InnoDB ATUO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
