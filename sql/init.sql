@@ -4,6 +4,8 @@ CREATE USER 'messaging'@'%' IDENTIFIED BY 'messaging2021';
 
 GRANT ALL PRIVILEGES ON *.* TO messaging@'%';
 
+USE messaging_test;
+
 CREATE TABLE `user` (
     `id` int NOT NULL AUTO_INCREMENT,
     `username` varchar(128) CHARACTER SET utf8 DEFAULT NULL,

@@ -16,5 +16,11 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Set up MySQL 5.7
+        uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: '5.7'
+      - name: Prepare MySQL database
+        run: mysql -uroot -h127.0.0.1< sql/init.sql
       - name: Run tests with Maven
         run: mvn test

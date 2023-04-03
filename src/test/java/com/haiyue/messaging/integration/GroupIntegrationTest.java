@@ -38,7 +38,6 @@ public class GroupIntegrationTest {
         this.testUserDAO.deleteAll();
     }
 
-    // test+target_scenario_expectation
     @Test
     public void testCreate_happyCase() throws Exception{
         User user = new User();
