@@ -28,3 +28,14 @@ CREATE TABLE user_validation_code (
     validation_code varchar(6) DEFAULT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE friend_invitation (
+    id int not null AUTO_INCREMENT,
+    sender_user_id int DEFAULT NULL,
+    receiver_user_id int DEFAULT NULL,
+    message varchar(128) CHARACTER SET utf8mb4 DEFAULT NULL,
+    status ENUM('PENDING', 'ACCEPTED', 'REJECTED') DEFAULT NULL,
+    create_time datetime DEFAULT NULL,
+    accept_time datetime DEFAULT NULL,
+    PRIMARY KEY(id),
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
