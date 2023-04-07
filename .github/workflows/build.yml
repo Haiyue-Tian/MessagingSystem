@@ -24,3 +24,8 @@ jobs:
         run: mysql -uroot -h127.0.0.1< sql/init.sql
       - name: Run tests with Maven
         run: mvn test
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
+          AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.AWS_CREDENTIALS_ACCESS_KEY }}
