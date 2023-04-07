@@ -52,8 +52,9 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public CommonResponse search(@RequestParam("q") String keyword){
-        List<User> users = this.userService.search(keyword);
+    public CommonResponse search(@RequestParam(value = "keyword") String keyword,
+                                 @RequestParam(required = false, defaultValue = "1") int page){
+        List<User> users = this.userService.search(keyword, page);
         return new ListUsersResponse(users);
     }
 }

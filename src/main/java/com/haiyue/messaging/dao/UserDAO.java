@@ -33,5 +33,19 @@ public interface UserDAO {
 
     @Update("UPDATE user SET is_valid = 1 WHERE id = #{id}")
     void updateIsValid(int id);
+
+    @Select("SELECT * FROM user " +
+            "WHERE (username LIKE '%${keyword}%' OR nickname LIKE '%${keyword}%')" +
+            "ORDER BY (" +
+            "CASE " +
+            "   WHEN username LIKE '%${keyword}%' AND nickname LIKE '%${keyword}%' " +
+            "   THEN GREATEST(LENGTH('${keyword}') / LENGTH(username), LENGTH('${keyword}') / LENGTH(nickname))" +
+            "   WHEN username LIKE '%${keyword}%' " +
+            "   THEN LENGTH('${keyword}') / LENGTH(username) " +
+            "   WHEN nickname LIKE '%${keyword}%' " +
+            "   THEN LENGTH('${keyword}') / LENGTH(nickname) " +
+            "END) DESC " +
+            "LIMIT ${start}, ${limit}")
+    List<User> search(String keyword, int start, int limit);
 }
 

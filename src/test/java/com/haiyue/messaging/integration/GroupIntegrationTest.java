@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Date;
 
+import static com.haiyue.messaging.utils.Password.passwordEncoder;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,7 +52,7 @@ public class GroupIntegrationTest {
 
         String loginToken = RandomStringUtils.randomAlphabetic(64);
 
-        this.testUserDAO.login(loginToken, new Date(), "username");
+        this.testUserDAO.login(passwordEncoder(loginToken), new Date(), "username");
 
         this.mockMvc.perform(post("/groups/create")
                         .header("Login-Token", loginToken))

@@ -26,6 +26,7 @@ public class UserService {
     @Autowired
     private JavaMailEmailService javaMailEmailService;
     private static final long LOGIN_TOKEN_EXPIRY_IN_MS = 7 * 24 * 60 * 60 * 1000;
+    private static final int PAGE_SIZE = 20;
 
     public void registerUser(String username,
                              String nickname,
@@ -97,7 +98,8 @@ public class UserService {
         }
 
         String loginToken = RandomStringUtils.randomAlphabetic(64);
-        this.userDAO.login(loginToken, new Date(), user.getId());
+        String EncodedLoginToken = passwordEncoder(loginToken);
+        this.userDAO.login(EncodedLoginToken, new Date(), user.getId());
         return loginToken;
     }
 
@@ -105,7 +107,7 @@ public class UserService {
         // authenticate -> identify who I am
         // authorization -> check if I have the permission for this resource
         // actually should use List<User> if size > 1 set loginToken as Null
-        User user = this.userDAO.selectByLoginToken(loginToken);
+        User user = this.userDAO.selectByLoginToken(passwordEncoder(loginToken));
         if (user == null){
             throw new MessageServiceException(Status.FORBIDDEN);
         }
@@ -131,7 +133,8 @@ public class UserService {
         return user;
     }
 
-    public List<User> search(String keyword) {
-        return null;
+    public List<User> search(String keyword, int page) {
+        int start = (page - 1) * PAGE_SIZE;
+        return this.userDAO.search(keyword, page, PAGE_SIZE);
     }
 }

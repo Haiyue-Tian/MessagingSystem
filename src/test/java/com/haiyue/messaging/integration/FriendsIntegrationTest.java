@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Date;
 
+import static com.haiyue.messaging.utils.Password.passwordEncoder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -54,7 +55,7 @@ public class FriendsIntegrationTest {
         this.testUserDAO.insertUser(sender);
         sender = this.testUserDAO.selectByUsername("sender").get(0);
         String senderLoginToken = RandomStringUtils.randomAlphabetic(64);
-        this.testUserDAO.login(senderLoginToken, new Date(), "sender");
+        this.testUserDAO.login(passwordEncoder(senderLoginToken), new Date(), "sender");
 
         User receiver = new User();
         receiver.setUsername("receiver");
