@@ -14,17 +14,12 @@ public class AmazonCloudWatchConfigurator {
     @Value("${cloud.aws.region.static}")
     private String region;
 
-//    @Value("${cloud.aws.credentials.access-key}")
-//    private String accessKey;
-//
-//    @Value("${cloud.aws.credentials.secret-key}")
-//    private String secretKey;
-//
-//    @Bean
-//    public AWSCredentialsProvider awsCredentialsProvider() {
-//        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-//        return new AWSStaticCredentialsProvider(awsCredentials);
-//    }
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
+
     @Autowired
     private AWSCredentialsProvider awsCredentialsProvider;
 
