@@ -37,5 +37,5 @@ CREATE TABLE friend_invitation (
     status ENUM('PENDING', 'ACCEPTED', 'REJECTED') DEFAULT NULL,
     create_time datetime DEFAULT NULL,
     accept_time datetime DEFAULT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
