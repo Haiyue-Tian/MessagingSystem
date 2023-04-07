@@ -38,10 +38,12 @@ public class UserIntegrationTest {
     @Autowired
     private TestUserValidationCodeDAO testUserValidationCodeDAO;
 
+    @Autowired
+    private CleanUpUtils cleanUpUtils;
+
     @BeforeEach
     public void cleanUpData(){
-        this.testUserValidationCodeDAO.deleteAll();
-        this.testUserDAO.deleteAll();
+        this.cleanUpUtils.cleanUpData();
     }
 
     // test+target_scenario_expectation
