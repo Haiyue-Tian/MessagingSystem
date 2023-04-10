@@ -7,8 +7,9 @@ import com.haiyue.messaging.request.ActivateUserRequest;
 import com.haiyue.messaging.request.LoginUserRequest;
 import com.haiyue.messaging.request.RegisterUserRequest;
 import com.haiyue.messaging.response.CommonResponse;
-import com.haiyue.messaging.response.ListUsersResponse;
 import com.haiyue.messaging.response.LoginUserResponse;
+import com.haiyue.messaging.response.PaginatedResponse;
+import com.haiyue.messaging.response.UserResponse;
 import com.haiyue.messaging.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,9 @@ public class UserController {
     public CommonResponse search(@RequestParam(value = "keyword") String keyword,
                                  @RequestParam(required = false, defaultValue = "1") int page){
         List<User> users = this.userService.search(keyword, page);
-        return new ListUsersResponse(users);
+        List<UserResponse> userResponses = users.stream()
+                .map(UserResponse::from)
+                .toList();
+        return new PaginatedResponse<>(userResponses, page);
     }
 }

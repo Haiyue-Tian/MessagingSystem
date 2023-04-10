@@ -14,6 +14,14 @@ public enum Status {
     USER_NOT_EXISTS(1008, "User does not exist", HttpStatus.BAD_REQUEST),
     USER_NOT_VALIDATED(1009, "User is not validated", HttpStatus.BAD_REQUEST),
     FORBIDDEN(1010, "Forbidden", HttpStatus.FORBIDDEN),
+    INVITATION_NOT_EXIST_OR_EXPIRED(1011, "Invitation not found or invitation has been accepted or rejected", HttpStatus.BAD_REQUEST),
+    CANNOT_SELF_ACCEPT(1012, "Cannot self-accept", HttpStatus.BAD_REQUEST),
+    CANNOT_SELF_REJECT(1013, "Cannot self-reject", HttpStatus.BAD_REQUEST),
+    MESSAGE_TYPE_NOT_TEXT(1014, "Message type is not TEXT", HttpStatus.BAD_REQUEST),
+    MESSAGE_TYPE_IS_TEXT(1015, "Message type is TEXT", HttpStatus.BAD_REQUEST),
+    GROUP_ID_EQUAL_TO_RECEIVER_ID(1016, "Message cannot be sent to both a group and a receiver at the same time or no group and receiver indicated", HttpStatus.BAD_REQUEST),
+    CONTENT_IS_NULL(1017, "Content cannot be null", HttpStatus.BAD_REQUEST),
+    NOT_FRIENDS(1018, "Sender and receiver are not friends", HttpStatus.BAD_REQUEST),
     UNKNOWN_ERROR(9999,  "Unknown error", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private int code;

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static com.haiyue.messaging.utils.Constant.PAGE_SIZE;
 import static com.haiyue.messaging.utils.Password.passwordEncoder;
 
 @Service
@@ -26,7 +27,6 @@ public class UserService {
     @Autowired
     private JavaMailEmailService javaMailEmailService;
     private static final long LOGIN_TOKEN_EXPIRY_IN_MS = 7 * 24 * 60 * 60 * 1000;
-    private static final int PAGE_SIZE = 20;
 
     public void registerUser(String username,
                              String nickname,
@@ -135,6 +135,6 @@ public class UserService {
 
     public List<User> search(String keyword, int page) {
         int start = (page - 1) * PAGE_SIZE;
-        return this.userDAO.search(keyword, page, PAGE_SIZE);
+        return this.userDAO.search(keyword, start, PAGE_SIZE + 1);
     }
 }

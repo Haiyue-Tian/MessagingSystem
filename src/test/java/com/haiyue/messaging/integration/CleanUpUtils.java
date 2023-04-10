@@ -1,6 +1,7 @@
 package com.haiyue.messaging.integration;
 
 import com.haiyue.messaging.dao.TestFriendInvitationDAO;
+import com.haiyue.messaging.dao.TestMessageDAO;
 import com.haiyue.messaging.dao.TestUserDAO;
 import com.haiyue.messaging.dao.TestUserValidationCodeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,13 @@ public class CleanUpUtils {
     @Autowired
     private TestFriendInvitationDAO testFriendInvitationDAO;
 
+    @Autowired
+    private TestMessageDAO testMessageDAO;
+
     public void cleanUpData(){
         this.testUserValidationCodeDAO.deleteAll();
         this.testUserDAO.deleteAll();
         this.testFriendInvitationDAO.deleteAll();
+        this.testMessageDAO.deleteAll();
     }
 }

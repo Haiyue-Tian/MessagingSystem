@@ -39,3 +39,15 @@ CREATE TABLE friend_invitation (
     accept_time datetime DEFAULT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+
+create table message
+(
+    id               int AUTO_INCREMENT,
+    sender_user_id   int                                               null,
+    group_chat_id    int                                               null,
+    receiver_user_id int                                               null,
+    content          VARCHAR(512)  CHARACTER SET utf8mb4               null,
+    send_time        DATETIME                                          null,
+    message_type     ENUM ('TEXT', 'IMAGE', 'VOICE', 'VIDEO', 'EMOJI') null,
+    primary key (id)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
