@@ -1,17 +1,25 @@
 package com.haiyue.messaging.controller;
 
 import com.haiyue.messaging.annotation.NeedAuth;
+import com.haiyue.messaging.enums.MessageType;
 import com.haiyue.messaging.enums.Status;
 import com.haiyue.messaging.exception.MessageServiceException;
+import com.haiyue.messaging.model.Message;
 import com.haiyue.messaging.model.User;
-import com.haiyue.messaging.request.MessageRequest;
 import com.haiyue.messaging.response.CommonResponse;
+import com.haiyue.messaging.response.PaginatedResponse;
 import com.haiyue.messaging.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
@@ -20,32 +28,42 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @PostMapping("/send")
+    @PostMapping("/sendFile")
     @NeedAuth
-    public CommonResponse sendMessage(
-            User user,
-            @RequestBody MessageRequest messageRequest) throws MessageServiceException {
-        this.messageService.sendMessage(
-                user,
-                messageRequest.getGroupChatId(),
-                messageRequest.getReceiverUserId(),
-                messageRequest.getContent(),
-                messageRequest.getMessageType());
+    public CommonResponse sendFile(User user,
+                                   @RequestParam(value = "file", required = false) MultipartFile file,
+                                   @RequestParam(value = "text", required = false) String text,
+                                   @RequestParam(value = "receiverUserId", required = false) Integer receiverUserId,
+                                   @RequestParam(value = "groupChatId", required = false) Integer groupChatId,
+                                   @RequestParam("messageType") MessageType messageType)
+            throws MessageServiceException {
+        this.messageService.storeMessage(user, receiverUserId, groupChatId, text, file, messageType);
         return new CommonResponse(Status.OK);
     }
 
-    @PostMapping("/sendFile")
+    @PostMapping("/listMessages")
     @NeedAuth
-    public CommonResponse sendFile(
+    public PaginatedResponse<Message>  listMessages(
             User user,
-            @RequestBody MessageRequest messageRequest,
-            @RequestParam("file") MultipartFile file) throws MessageServiceException, IOException {
-        this.messageService.sendFile(
-                user,
-                messageRequest.getGroupChatId(),
-                messageRequest.getReceiverUserId(),
-                messageRequest.getMessageType(),
-                file);
-        return new CommonResponse(Status.OK);
+            @RequestParam(value = "groupChatId", required = false) Integer groupChatId,
+            @RequestParam(value = "receiverUserId", required = false) Integer receiverUserId,
+            @RequestParam(value = "page", defaultValue = "1", required = false) int page)
+            throws MessageServiceException {
+        List<Message> messages = this.messageService.listMessages(user, groupChatId, receiverUserId, page);
+        return new PaginatedResponse<>(messages, page);
+    }
+
+    @PostMapping("/downloadFile")
+    @NeedAuth
+    public ResponseEntity<ByteArrayResource> downloadFile(User user, @RequestParam int messageId)
+            throws MessageServiceException{
+        byte[] bytes = this.messageService.getMessageFile(user, messageId);
+        MediaType mediaType = this.messageService.getMediaType(user, messageId);
+        ByteArrayResource byteArrayResource = new ByteArrayResource(bytes);
+        ResponseEntity<ByteArrayResource> responseEntity = ResponseEntity.ok()
+            .contentLength(bytes.length)
+            .contentType(mediaType)
+            .body(byteArrayResource);
+        return responseEntity;
     }
 }

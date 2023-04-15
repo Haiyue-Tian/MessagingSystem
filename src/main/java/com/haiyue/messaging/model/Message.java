@@ -8,10 +8,10 @@ import java.util.Date;
 @Data
 public class Message {
     private int id;
-    private int senderUserId;
-    private int groupChatId;
-    private int receiverUserId;
-    private String content; // content is null when messageType is not TEXT
+    private Integer senderUserId;
+    private Integer groupChatId;
+    private Integer receiverUserId;
+    private String fileName;
     private Date sendTime;
     private MessageType messageType;
 }

@@ -46,7 +46,6 @@ create table message
     sender_user_id   int                                               null,
     group_chat_id    int                                               null,
     receiver_user_id int                                               null,
-    content          VARCHAR(512)  CHARACTER SET utf8mb4               null,
     send_time        DATETIME                                          null,
     message_type     ENUM ('TEXT', 'IMAGE', 'VOICE', 'VIDEO', 'EMOJI') null,
     primary key (id)

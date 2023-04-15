@@ -22,6 +22,9 @@ public enum Status {
     GROUP_ID_EQUAL_TO_RECEIVER_ID(1016, "Message cannot be sent to both a group and a receiver at the same time or no group and receiver indicated", HttpStatus.BAD_REQUEST),
     CONTENT_IS_NULL(1017, "Content cannot be null", HttpStatus.BAD_REQUEST),
     NOT_FRIENDS(1018, "Sender and receiver are not friends", HttpStatus.BAD_REQUEST),
+    CANNOT_GET_MESSAGE_TYPE(1019, "Cannot get message type", HttpStatus.BAD_REQUEST),
+    NOT_AUTHORIZED(1020, "Not authorized", HttpStatus.BAD_REQUEST),
+    UNKNOWN_MESSAGE_TYPE(1021, "Unknown message typoe", HttpStatus.BAD_REQUEST),
     UNKNOWN_ERROR(9999,  "Unknown error", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private int code;
