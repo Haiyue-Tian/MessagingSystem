@@ -66,4 +66,5 @@ public class MessageController {
             .body(byteArrayResource);
         return responseEntity;
     }
+
 }

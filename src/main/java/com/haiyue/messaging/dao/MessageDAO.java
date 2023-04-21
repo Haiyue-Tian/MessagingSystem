@@ -32,4 +32,7 @@ public interface MessageDAO {
 
     @Select("SELECT * FROM message WHERE id = #{messageId}")
     Message selectMessageByMessageId(int messageId);
+
+    @Select("SELECT id, sender_user_id FROM message WHERE receiver_user_id = #{receiverUserId} AND id > #{lastMessageId}")
+    List<Message> selectIdAndSenderUsersId(Integer receiverUserId, Integer lastMessageId);
 }

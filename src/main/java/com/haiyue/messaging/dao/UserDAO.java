@@ -25,6 +25,9 @@ public interface UserDAO {
     @Select("SELECT * FROM user WHERE username = #{username}")
     List<User> selectByUsername(String username);
 
+    @Select("SELECT nickname FROM user WHERE id = #{id}")
+    String selectNickNameById(int id);
+
     @Select("SELECT * FROM user WHERE login_token = #{loginToken}")
     User selectByLoginToken(String loginToken);
 
